@@ -46,8 +46,8 @@ public class LoginController {
 		 return new ModelAndView("calendar", model);
 	 }
 
-	  static void paramMap(HttpServletRequest req){
-	 	Enumeration<String> params = req.getParameterNames();
+	static void paramMap(HttpServletRequest req){
+		Enumeration<String> params = req.getParameterNames();
 		Enumeration<String> headerNames = req.getHeaderNames();
 
 		while(params.hasMoreElements()){
@@ -58,7 +58,7 @@ public class LoginController {
 			String headerName = headerNames.nextElement();
 			System.out.println("Header Name - " + headerName + ", Value - " + req.getHeader(headerName));
 		}
-	 }
+	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -68,6 +68,7 @@ public class LoginController {
 	@PostMapping(value = "/login")
 	public @ResponseBody String login(@RequestParam Map<String, String> body, HttpServletRequest req)
 			throws ClassNotFoundException, SQLException {
+
 	 	String username = body.get("username");
 	 	String password = body.get("password");
 		User user = userRepo.findUserByUsernameAndEnabled(username, 1);

@@ -1,6 +1,6 @@
-const $ = (el) => {
+const $ = (el, forceArray)=> {
 	const ele = document.querySelectorAll(el);
-	return (ele.length === 1 ? ele[0] : ele);
+	return (ele.length === 1 && !forceArray ? ele[0] : ele);
 };
 
 const mapFormData = (form) =>{
@@ -45,7 +45,7 @@ const ajax = (o) => {
 			if(typeof response == 'string' && (response.charAt(0) === "[" || response.charAt(0) === "{"))
 				response = JSON.parse(response);
 
-				callback(response);
+			callback(response);
 
 			if(o.complete)
 				o.complete(response);
@@ -64,7 +64,7 @@ const ajax = (o) => {
 	}
 
 	o.method = (o.method ? o.method : "GET");
-	xhr.open(o.method, (o.url === undefined ? "/" : o.method === "GET" ? (o.url+"?"+params) : o.url), o.async || true);
+	xhr.open(o.method, (o.url === undefined ? "/" : o.method === "GET" && o.data !== undefined ? (o.url+"?"+params) : o.url), o.async || true);
 
 	if(o.method !== "GET" && o.useContentType !== false && o.isFile !== true)
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

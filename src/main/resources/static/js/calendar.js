@@ -411,7 +411,7 @@ const uploadPicture = () => {
 	});
 };
 
-const retrievePicture = () =>{
+const retrievePicture = () => {
 	ajax({
 		method: "GET",
 		url: "/downloadPicture",
